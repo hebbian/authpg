@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1 Login
+  form(action='', method='post')
+    label Username
+    input(type='text', placeholder='username', name='username')
+    br
+    label Password
+    input(type='password', placeholder='password', name='password')
+    input(type='submit', value='Login')
+    a(href='/register') register here

@@ -16,29 +16,29 @@ var isAuthenticated = function (req, res, next) {
     });
 
     router.get('/login', function(req, res, next) {
-        res.send('login page');
+        res.render('login');
     });
 
     router.post('/login', passport.authenticate('login', {
         successRedirect: '/memberarea',
-        failureRedirect: '/gtfo'
+        failureRedirect: '/no'
     }));
 
     router.get('/register', function(req, res, next) {
-        res.send('register page');
+        res.render('register');
     });
 
     router.post('/register', passport.authenticate('register', {
         successRedirect: '/login',
-        failureRedirect: '/gtfo'
+        failureRedirect: '/no'
     }));
 
-    router.get('/gtfo', function(req, res, next) {
-        res.send('gtfo');
+    router.get('/no', function(req, res, next) {
+        res.send('unauthorized');
     })
 
     router.get('/memberarea', isAuthenticated, function(req, res, next) {
-        res.send('member area');
+        res.render('memberarea');
     });
 
     router.get('/logout', function(req, res, next) {
