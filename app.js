@@ -5,9 +5,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var pg= require('pg');
+var passport = require('passport');
+var expressSession = require('express-session');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
 
 var app = express();
 
@@ -22,6 +22,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(expressSession({secret:"muhSekritKey"}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 app.use(function(req, res, next) {
     var connstr = 'postgres://habibi:@localhost/authpg_db';
@@ -35,6 +39,12 @@ app.use(function(req, res, next) {
         }
     });
 });
+
+var initPass = require('./passport');
+initPass(passport);
+
+var routes = require('./routes/index')(passport);
+var users = require('./routes/users');
 
 app.use('/', routes);
 app.use('/users', users);

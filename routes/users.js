@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var db = require('../db');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -17,8 +16,5 @@ router.get('/', function(req, res, next) {
     }
 });
 
-router.post('/', function(req, res, next) {
-    res.send('post');
-})
 
 module.exports = router;
